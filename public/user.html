@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="user.css">
+    <script src="user.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="manage.html">Manage Complaints</a></li>
+            <li><a href="user.html" class="active">User Management</a></li>
+            <li><a href="userlogin.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h1>User Management</h1>
+        </div>
+        
+        <div class="users-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="users-body">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch('http://localhost:3019/api/complaints'); // Adjust the endpoint as necessary
+                if (!response.ok) throw new Error('Network response was not ok');
+                const complaints = await response.json();
+                const usersBody = document.getElementById('users-body');
+
+                usersBody.innerHTML = ''; // Clear existing rows
+
+                // Create a map to track unique users
+                const uniqueUsers = new Map();
+
+                complaints.forEach((complaint) => {
+                    // Use email as a unique identifier
+                    if (!uniqueUsers.has(complaint.email)) {
+                        uniqueUsers.set(complaint.email, complaint); // Store the complaint
+                    }
+                });
+
+                // Convert the map values to an array
+                const uniqueUserArray = Array.from(uniqueUsers.values());
+
+                uniqueUserArray.forEach((user, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${user.firstName} ${user.lastName}</td>
+                        <td>${user.email || 'N/A'}</td>
+                        <td>${user.phoneNumber || 'N/A'}</td>
+                        <td>${user.status || 'Pending'}</td>
+                        <td>
+                            <button class="btn-delete" onclick="deleteComplaint('${user._id}')">Delete</button>
+                        </td>
+                    `;
+                    usersBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching complaints:', error);
+            }
+        }
+
+        // Fetch users on page load
+        window.onload = fetchUsers;
+
+        // Function for delete
+        async function deleteComplaint(id) {
+            const confirmation = confirm('Are you sure you want to delete this complaint?');
+            if (!confirmation) return;
+
+            try {
+                const response = await fetch(`http://localhost:3019/api/complaints/${id}`, {
+                    method: 'DELETE',
+                });
+                if (!response.ok) throw new Error('Network response was not ok');
+                fetchUsers(); // Refresh the users list
+            } catch (error) {
+                console.error('Error deleting complaint:', error);
+            }
+        }
+    </script>
+</body>
+</html>

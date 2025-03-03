@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    box-sizing: border-box;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #444;
+    border-radius: 4px;
+}
+
+/* Profile Container Styling */
+.profile-container {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 260px; /* Adjust to fit sidebar */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.profile-card {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.profile-details {
+    margin-bottom: 20px;
+}
+
+.profile-details h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.profile-details p {
+    color: #666;
+}
+
+/* Change Password Section */
+.change-password {
+    margin-top: 20px;
+}
+
+.change-password label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.change-password input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.change-password button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.change-password button:hover {
+    background-color: #0056b3;
+}

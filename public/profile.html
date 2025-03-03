@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="userdashboard.html">Dashboard</a></li>
+            <li><a href="viewcomplaint.html">View Complaint</a></li>
+            <li><a href="complaint.html">Raise Complaint</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="profile-container">
+        <h2>My Profile</h2>
+        <div class="profile-card">
+            <div class="profile-details">
+                <h3>Username: <span id="username"></span>adi</h3>
+                <h3>Password: <span id="password"></span>12345</h3> <!-- Added password display -->
+            </div>
+            <div class="change-password">
+                <h3>Change Password</h3>
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" placeholder="Enter new password">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm new password">
+                <button onclick="changePassword()">Change Password</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+       async function fetchUserProfile() {
+    try {
+        const response = await fetch('http://localhost:3019/api/users/profile'); // Adjusted URL
+        if (!response.ok) throw new Error('Failed to fetch profile data');
+
+        const data = await response.json();
+        document.getElementById('username').textContent = data.username;
+        document.getElementById('password').textContent = data.password;
+        document.querySelector('.email-address a').textContent = data.email;
+    } catch (error) {
+        console.error('Error loading profile data:', error);
+        alert('Error loading profile data. Please try again later.');
+    }
+}
+
+
+        async function changePassword() {
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            try {
+                const userId = 'USER_ID_HERE'; // Replace with actual user ID from the logged-in user
+                const response = await fetch('/api/users/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId, newPassword })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Password changed successfully');
+                } else {
+                    alert('Failed to change password');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while changing the password');
+            }
+        }
+
+        // Fetch the user profile when the page loads
+        document.addEventListener('DOMContentLoaded', fetchUserProfile);
+    </script>
+</body>
+</html>

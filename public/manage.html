@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Complaints</title>
+    <link rel="stylesheet" href="manage.css">
+    <script src="manage.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="manage.html" class="active">Manage Complaints</a></li>
+            <li><a href="user.html">User Management</a></li>
+            <li><a href="userlogin.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h1>Manage Complaints</h1>
+        </div>
+        
+        <div class="complaints-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="complaints-body">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+ async function fetchComplaints() {
+    try {
+        const response = await fetch('http://localhost:3019/api/complaints');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const complaints = await response.json();
+        const complaintsBody = document.getElementById('complaints-body');
+
+        complaintsBody.innerHTML = ''; // Clear existing rows
+
+        complaints.forEach((complaint, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${complaint.firstName} ${complaint.lastName}</td>
+                <td>${complaint.department}</td>
+                <td>${new Date(complaint.reportDate).toLocaleDateString()}</td>
+                <td>${complaint.status || 'Pending'}</td>
+                <td>
+                    <button class="btn-resolve" onclick="resolveComplaint('${complaint._id}')">Resolve</button>
+                    <button class="btn-delete" onclick="deleteComplaint('${complaint._id}')">Delete</button>
+                </td>`;
+            complaintsBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching complaints:', error);
+    }
+}
+
+
+        // Fetch complaints on page load
+        window.onload = fetchComplaints;
+
+        // Function for delete
+        async function deleteComplaint(id) {
+            const confirmation = confirm('Are you sure you want to delete this complaint?');
+            if (!confirmation) return;
+
+            try {
+    const response = await fetch(`http://localhost:3019/api/complaints/${id}`, { // Use backticks here
+        method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    fetchComplaints(); // Refresh the complaints list
+} catch (error) {
+    console.error('Error deleting complaint:', error);
+}}
+
+        async function resolveComplaint(id) {
+    const confirmation = confirm('Are you sure you want to mark this complaint as resolved?');
+    if (!confirmation) return;
+
+    try {
+    const response = await fetch(`http://localhost:3019/api/complaints/${id}/resolve`, { // Use backticks here
+        method: 'PATCH',
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    alert('Complaint marked as resolved.');
+    fetchComplaints(); // Refresh the complaints list
+} catch (error) {
+    console.error('Error resolving complaint:', error);
+    alert('Failed to resolve the complaint. Please try again later.');
+}
+}
+    </script>
+</body>
+</html>
+        

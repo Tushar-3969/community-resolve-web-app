@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #343a40; /* Dark sidebar */
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    box-sizing: border-box;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background-color: #007bff; /* Active link color */
+    border-radius: 4px;
+}
+
+.content {
+    margin-left: 250px; /* Space for sidebar */
+    padding: 20px;
+    flex: 1;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.users-table {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #dee2e6; /* Table border color */
+    text-align: left;
+}
+
+th {
+    background-color: #007bff; /* Header background */
+    color: white;
+}
+
+.btn-edit, .btn-delete {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #ffc107; /* Yellow edit button */
+    color: white;
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Red delete button */
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}

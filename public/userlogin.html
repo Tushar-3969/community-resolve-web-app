@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginandregister.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Login</title>
+    <script src="userlogin.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="box form-box">
+            <header>Login</header>
+            <form onsubmit="event.preventDefault(); submitForm();">
+                <div class="field input">
+                    <label for="username">User</label>
+                    <input type="text" name="username" id="username" autocomplete="off" required placeholder="Enter Your username">
+                    <i class='bx bxs-user'></i>
+                </div>
+
+                <div class="field input">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" autocomplete="off" required placeholder="Enter Your password">
+                    <i class='bx bxs-lock-alt'></i>
+                    <span id="toggle-text" onclick="togglePassword()" style="cursor:pointer;">Show</span>
+                </div>
+                
+                <input type="submit" name="submit" value="Login" style="background-color: #ecf3f7; color: rgb(41, 39, 39); display: block; margin: 0 auto; padding: 10px 40px; border-radius: 10px; width: 100%;" />
+
+                <div class="links">
+                    Don't have an account? <a href="userregister.html"> Register </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const toggleText = document.getElementById('toggle-text');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Change to text
+                toggleText.textContent = 'Hide'; // Change text to 'Hide'
+            } else {
+                passwordField.type = 'password'; // Change back to password
+                toggleText.textContent = 'Show'; // Change text to 'Show'
+            }
+        }
+    </script>
+</body>
+</html>

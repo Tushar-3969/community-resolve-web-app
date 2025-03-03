@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" integrity="sha256-0PtoCpBik7wFTOm0W4OG8ItO6OVhNRG45F+Fhz2tK70=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" integrity="sha256-1iTe6B9NE2fyF5eFwMJG3U5FcWnbHZPExA8LEuKRYgg=" crossorigin="" />
+    <title>Complaint Form</title>
+    <style>
+        body {
+            background: url("image.png") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: hsl(122, 39%, 49%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .labelsize {
+            font-weight: bold;
+        }
+        .symbol {
+            margin-right: 8px;
+        }
+        .sub-topic {
+            display: none;
+            margin-top: 10px;
+        }
+        .text-red-500 {
+            color: red;
+        }
+    </style>
+    <script>
+        async function submitComplaint() {
+    const response = await fetch('/api/complaints', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            // Include your complaint data here
+        })
+    });
+
+    if (!response.ok) {
+        console.error('Error:', response.statusText);
+        alert('Failed to submit complaint');
+    } else {
+        alert('Complaint submitted successfully!');
+    }
+}
+
+        function showSubTopics() {
+            const departmentSelect = document.getElementById("typeOfRoom");
+            const subTopics = document.querySelectorAll(".sub-topic");
+            subTopics.forEach(subTopic => {
+                subTopic.style.display = "none";
+            });
+            const selectedDepartment = departmentSelect.value;
+            if (selectedDepartment !== "None") {
+                document.getElementById(selectedDepartment + "SubTopics").style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-2xl font-bold text-center mb-6">Complaint Information</h2>
+        <form id="complaintForm" action="/api/complaints" method="POST" enctype="multipart/form-data">
+            <div class="mb-6">
+                <label for="reportdate" class="labelsize block mb-2">Report Date</label>
+                <input type="date" id="reportdate" name="reportdate" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="typeOfRoom" class="labelsize block mb-2">Choose Department</label>
+                <select name="typeOfRoom" id="typeOfRoom" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required onchange="showSubTopics()">
+                    <option value="None">None</option> 
+                    <option value="roadSafety">Road Safety</option> 
+                    <option value="water">Water</option> 
+                    <option value="general">General Administration</option> 
+                    <option value="fire">Fire</option> 
+                    <option value="electricity">Electricity</option> 
+                    <option value="health">Health</option> 
+                    <option value="environment">Environment</option> 
+                    <option value="municipal">Municipal Services</option> 
+                    <option value="others">Others</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="roadSafetySubTopics">
+                <label for="roadSafetySubTopic" class="labelsize block mb-2">Road Safety Sub-Topics</label>
+                <select name="roadSafetySubTopic" id="roadSafetySubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="pothole">Pothole</option> 
+                    <option value="roadlight">Broken Street Light</option> 
+                    <option value="signage">Missing Signage</option> 
+                    <option value="traffic">Traffic Issues</option> 
+                    <option value="openManholes">Open Manholes or Drains</option> 
+                    <option value="stagnantWater">Stagnant Water on the Road</option> 
+                    <option value="yellowSpot">Yellow Spot (Public Urination Spot)</option> 
+                    <option value="graffiti">Graffiti</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="waterSubTopics">
+                <label for="waterSubTopic" class="labelsize block mb-2">Water Sub-Topics</label>
+                <select name="waterSubTopic" id="waterSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="leakage">Leakage</option> 
+                    <option value="pollution">Water Pollution</option> 
+                    <option value="supply">No Water Supply</option> 
+                    <option value="septic">Overflow of Septic Tanks</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="generalSubTopics">
+                <label for="generalSubTopic" class="labelsize block mb-2">General Administration Sub-Topics</label>
+                <select name="generalSubTopic" id="generalSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="infrastructure">Infrastructure Issues</option> 
+                    <option value="services">Garbage Vehicle Not Arrived</option> 
+                    <option value="staff">Dustbins Not Cleaned</option> 
+                    <option value="sweeping">Sweeping Not Done</option> 
+                    <option value="publicToiletsBlockage">Public Toilets Blockage</option> 
+                    <option value="publicToiletsCleaning">Public Toilets Cleaning</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="fireSubTopics">
+                <label for="fireSubTopic" class="labelsize block mb-2">Fire Sub-Topics</label>
+                <select name="fireSubTopic" id="fireSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="equipment">Fire Equipment Issues</option> 
+                    <option value="emergency">Emergency Response</option> 
+                    <option value="safety">Fire Safety Complaints</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="electricitySubTopics">
+                <label for="electricitySubTopic" class="labelsize block mb-2">Electricity Sub-Topics</label>
+                <select name="electricitySubTopic" id="electricitySubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="outage">Power Outage</option> 
+                    <option value="voltage">Voltage Issues</option> 
+                    <option value="safety">Safety Concerns</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="healthSubTopics">
+                <label for="healthSubTopic" class="labelsize block mb-2">Health Sub-Topics</label>
+                <select name="healthSubTopic" id="healthSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="hygiene">Hygiene Issues</option> 
+                    <option value="sanitation">Sanitation Problems</option> 
+                    <option value="emergency">Health Emergencies</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="environmentSubTopics">
+                <label for="environmentSubTopic" class="labelsize block mb-2">Environment Sub-Topics</label>
+                <select name="environmentSubTopic" id="environmentSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="pollution">Pollution Complaints</option> 
+                    <option value="waste">Waste Management Issues</option> 
+                    <option value="greenSpaces">Green Spaces Issues</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="municipalSubTopics">
+                <label for="municipalSubTopic" class="labelsize block mb-2">Municipal Services Sub-Topics</label>
+                <select name="municipalSubTopic" id="municipalSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="services">Municipal Services Issues</option> 
+                    <option value="citizen">Citizen Complaints</option> 
+                    <option value="grievances">Public Grievances</option> 
+                </select>
+            </div>
+
+            <div class="mb-6 sub-topic" id="othersSubTopics">
+                <label for="othersSubTopic" class="labelsize block mb-2">Others</label>
+                <input type="text" name="othersSubTopic" id="othersSubTopic" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Please specify other complaints">
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-xl font-semibold mb-4">Place Details</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="fname" name="fname" placeholder="First Name" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="[A-Za-z]+" title="Please enter Alphabets only" required>
+                    <input type="text" id="lname" name="lname" placeholder="Last Name" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="[A-Za-z]+" title="Please enter Alphabets only" required>
+                </div>
+                <div class="text-red-500" id="fnameError" style="display: none;">First name must contain only alphabets.</div>
+                <div class="text-red-500" id="lnameError" style="display: none;">Last name must contain only alphabets.</div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <input type="email" id="email" name="email" placeholder="Email Address" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" name="phno" id="phno" placeholder="Phone Number" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" maxlength="10" pattern="\d{10}" title="Please enter Numbers only" required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <input type="text" id="District" name="District" placeholder="District" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="[A-Za-z]+" title="Please enter Alphabets only" required>
+                    <input type="text" id="address1" name="address1" placeholder="Address line 1" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <input type="text" id="address2" name="address2" placeholder="Address line 2" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="city" name="city" placeholder="City" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="[A-Za-z]+" title="Please enter Alphabets only" required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <input type="text" id="state" name="state" placeholder="State" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="[A-Za-z]+" title="Please enter Alphabets only" required>
+                    <input type="text" id="zipcode" name="zipcode" placeholder="Zip Code" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="[0-9]+" title="Please enter Numbers only" required>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label for="comment" class="labelsize block mb-2">Additional Comments</label>
+                <textarea id="comment" name="comment" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Any additional information"></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label for="fileUpload" class="labelsize block mb-2">Upload File (optional)</label>
+                <input type="file" id="fileUpload" name="fileUpload" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <button type="submit" class="button">Submit Complaint</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("complaintForm").addEventListener("submit", function(event) {
+            let valid = true;
+            const fname = document.getElementById("fname").value;
+            const lname = document.getElementById("lname").value;
+            const fnameError = document.getElementById("fnameError");
+            const lnameError = document.getElementById("lnameError");
+
+            // Validate first name
+            if (!/^[A-Za-z]+$/.test(fname)) {
+                fnameError.style.display = "block";
+                valid = false;
+            } else {
+                fnameError.style.display = "none";
+            }
+
+            // Validate last name
+            if (!/^[A-Za-z]+$/.test(lname)) {
+                lnameError.style.display = "block";
+                valid = false;
+            } else {
+                lnameError.style.display = "none";
+            }
+
+            if (!valid) {
+                event.preventDefault(); // Prevent form submission if invalid
+            }
+        });
+    </script>
+</body>
+</html>

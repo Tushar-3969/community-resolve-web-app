@@ -1,0 +1,324 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+/* General Styling */
+.loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Make sure it appears on top */
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+/* Container for Centering Content */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+}
+
+/* Box Styling */
+.box {
+    background: transparent;
+    flex-direction: column;
+    padding: 25px 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+                0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Box Styling */
+.form-box {
+    width: 450px;
+    margin: 0 10px;
+}
+
+.form-box header {
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 10px;
+}
+
+.form-box form .field {
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.form-box form .input input {
+    height: 40px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+/* Button Styling */
+.btn {
+    height: 45px;
+    background: rgba(232, 225, 235, 0.808);
+    border: 0;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.82;
+}
+
+.submit {
+    width: 100%;
+}
+
+/* Links Styling */
+.links {
+    margin-bottom: 15px;
+}
+
+/* Navigation Bar Styling */
+.nav {
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    line-height: 60px;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #000;
+}
+
+.right-links a {
+    padding: 0 10px;
+}
+
+/* Main Content Styling */
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.main-box {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.main-box .top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bottom {
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+/* Responsive Design for Smaller Screens */
+@media only screen and (max-width: 840px) {
+    .main-box .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .top .box {
+        margin: 10px 10px;
+    }
+    
+    .bottom {
+        margin-top: 0;
+    }
+}
+
+/* Message Box Styling */
+.message {
+    text-align: center;
+    background: #f9eded;
+    padding: 15px 0;border: 1px solid #699053;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: rgb(108, 43, 161);
+}
+.field {
+    position: relative;
+    margin-bottom: 200px;
+}
+
+.field input {
+    width: 100%;
+    padding-right: 60px; /* space for the icon */
+    box-sizing: border-box;
+}
+
+.field i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-7%);
+    font-size: 20px;
+    color: #666;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1.5rem;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+    background-color: #007bff;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #e9ecef;
+}
+
+.main-header {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.welcome-section {
+    margin-top: 20px;
+}
+
+.welcome-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    color: white;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}

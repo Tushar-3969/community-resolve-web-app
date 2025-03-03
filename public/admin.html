@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="admin.html ">Dashboard</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="manage.html" >Manage Complaints</a></li>
+            <li><a href="user.html">User Management</a></li>
+            <li><a href="home.html">Logout</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h3>Complaints Overview</h3>
+                <p>View and manage all the complaints submitted by users.</p>
+                <a href="manage.html" class="btn-blue">Manage Complaints</a>
+            </div>
+            <div class="card">
+                <h3>Leaderboard</h3>
+                <p>View the department-wise complaint resolution leaderboard.</p>
+                <a href="leaderboard.html" class="btn-green">View Leaderboard</a>
+            </div>
+            <div class="card">
+                <h3>User Management</h3>
+                <p>Manage user accounts and permissions.</p>
+                <a href="user.html" class="btn-yellow">Manage Users</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

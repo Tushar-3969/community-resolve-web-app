@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginandregister.css">
+    <title>Admin Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box form-box">
+            <header>Admin Login</header>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="field input">
+                    <label for="admin-username">Username</label>
+                    <input type="text" name="admin-username" id="admin-username" required placeholder="Enter Your username">
+                </div>
+                <div class="field input">
+                    <label for="admin-password">Password</label>
+                    <input type="password" name="admin-password" id="admin-password" required placeholder="Enter Your password">
+                </div>
+                <input type="submit" value="Login" style="width: 100%; padding: 10px;">
+            </form>
+        </div>
+    </div>
+    <script src="adminlogin.js"></script>
+</body>
+</html>

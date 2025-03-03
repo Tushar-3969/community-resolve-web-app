@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.main {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    box-sizing: border-box;
+    position: fixed;
+  }
+  
+  .sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 15px 20px;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .sidebar ul li a:hover{
+    background-color:#444;
+    border-radius: 4px;
+  }
+  
+.view-container {
+    flex-grow: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.h2 {
+    margin-left: 250px;
+}
+.view-card {
+    margin-top: 20px;
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.view-card p {
+    margin: 10px 0;
+}
+
+.place-detail {
+    margin: 15px 0;
+}
+
+.additional-comment, .complaint-photo {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #bdc3c7;
+    border-radius: 4px;
+}
+
+.complaint-photo a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+.complaint-photo a:hover {
+    text-decoration: underline;
+}
